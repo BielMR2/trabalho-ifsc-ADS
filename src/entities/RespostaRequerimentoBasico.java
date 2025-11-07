@@ -1,6 +1,7 @@
 package entities;
 
 import interfaces.Coordenacao;
+import interfaces.Momento;
 import interfaces.RespostaRequerimento;
 import interfaces.Status;
 
@@ -9,11 +10,11 @@ import java.time.LocalDateTime;
 public class RespostaRequerimentoBasico implements RespostaRequerimento {
     private String descricao;
     private Status status;
-    private LocalDateTime dataAtualizacao;
+    private Momento momento;
     private Coordenacao coordenacao;
 
     public RespostaRequerimentoBasico(String descricao, Status status, Coordenacao coordenacao) {
-        this.dataAtualizacao = LocalDateTime.now();
+        this.momento = new MomentoAtual();
 
         this.descricao = descricao;
         this.status = status;

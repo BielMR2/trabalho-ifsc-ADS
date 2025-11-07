@@ -14,13 +14,13 @@ public class RequerimentoBasico implements Requerimento {
     private TipoRequerimento tipoRequerimento;
     private Aluno aluno;
     private RespostaRequerimento respostaRequerimento;
-    private LocalDateTime localDateTime;
+    private Momento momento;
     private List<UnidadeCurricular> unidadesCurriculares;
 
     public RequerimentoBasico(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno, Coordenacao coordenacao) {
-        this.localDateTime = LocalDateTime.now();
         this.respostaRequerimento = new RespostaRequerimentoBasico("", new EmAnalise("Em analise"), coordenacao);
         this.id = UUID.randomUUID();
+        this.momento = new MomentoAtual();
 
         this.arquivo = arquivo;
         this.descricao = descricao;
