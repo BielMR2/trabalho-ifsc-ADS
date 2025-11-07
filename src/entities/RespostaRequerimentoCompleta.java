@@ -5,18 +5,18 @@ import interfaces.Momento;
 import interfaces.RespostaRequerimento;
 import interfaces.Status;
 
-import java.time.LocalDateTime;
-
-public class RespostaRequerimentoBasico implements RespostaRequerimento {
+public class RespostaRequerimentoCompleta implements RespostaRequerimento {
     private String descricao;
     private Status status;
     private Momento momento;
+    private Coordenacao coordenacao;
 
-    public RespostaRequerimentoBasico(String descricao, Status status) {
+    public RespostaRequerimentoCompleta(String descricao, Status status, Coordenacao coordenacao) {
         this.momento = new MomentoAtual();
 
         this.descricao = descricao;
         this.status = status;
+        this.coordenacao = coordenacao;
     }
 
     @Override

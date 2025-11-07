@@ -30,7 +30,7 @@ public class Main {
         AlunoBasico lucas = new AlunoBasico("202510704008", "Lucas Gomes Mendes");
 
         // Requerimento
-        Requerimento requerimento = new RequerimentoBasico("arquivo.txt", "Descricao do requerimento", entradaSaida, arthur, willian);
+        Requerimento requerimento = new RequerimentoBasico("arquivo.txt", "Descricao do requerimento", entradaSaida, arthur);
         requerimento.addUnidadeCurricula(analiseDesenvolvimentoSistemas);
 
         requerimento.responder("Parabéns, voce foi aprovado", reprovado, willian);

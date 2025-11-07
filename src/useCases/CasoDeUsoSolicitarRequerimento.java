@@ -25,7 +25,7 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
 
         AlunoBasico arthur = new AlunoBasico("202510704000", "Arthur Antoniasse de Oliveira");
 
-        Requerimento requerimento = new RequerimentoBasico("arquivo.txt", "Descricao do requerimento", entradaSaida, arthur, willian);
+        Requerimento requerimento = new RequerimentoBasico("arquivo.txt", "Descricao do requerimento", entradaSaida, arthur);
         requerimento.addUnidadeCurricula(analiseDesenvolvimentoSistemas);
 
         this.requerimentos.criarRequerimento(requerimento);

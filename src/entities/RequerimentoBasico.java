@@ -17,8 +17,8 @@ public class RequerimentoBasico implements Requerimento {
     private Momento momento;
     private List<UnidadeCurricular> unidadesCurriculares;
 
-    public RequerimentoBasico(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno, Coordenacao coordenacao) {
-        this.respostaRequerimento = new RespostaRequerimentoBasico("", new EmAnalise("Em analise"), coordenacao);
+    public RequerimentoBasico(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno) {
+        this.respostaRequerimento = new RespostaRequerimentoBasico("Seu requerimento está em analise, será respondido em breve.", new EmAnalise("Em analise"));
         this.id = UUID.randomUUID();
         this.momento = new MomentoAtual();
 
@@ -56,7 +56,7 @@ public class RequerimentoBasico implements Requerimento {
 
     @Override
     public void responder(String descricao, Status status, Coordenacao coordenacao) {
-        this.respostaRequerimento = new RespostaRequerimentoBasico(descricao, status, coordenacao);
+        this.respostaRequerimento = new RespostaRequerimentoCompleta(descricao, status, coordenacao);
     }
 
     @Override
