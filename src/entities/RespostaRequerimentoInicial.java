@@ -1,22 +1,20 @@
 package entities;
 
-import interfaces.Coordenacao;
 import interfaces.Momento;
 import interfaces.RespostaRequerimento;
 import interfaces.Status;
 
-import java.time.LocalDateTime;
-
-public class RespostaRequerimentoBasico implements RespostaRequerimento {
+public class RespostaRequerimentoInicial implements RespostaRequerimento {
     private String descricao;
     private Status status;
     private Momento momento;
 
-    public RespostaRequerimentoBasico(String descricao, Status status) {
+    public RespostaRequerimentoInicial() {
         this.momento = new MomentoAtual();
 
         this.descricao = descricao;
-        this.status = status;
+        this.status = new EmAnalise() {
+        };
     }
 
     @Override

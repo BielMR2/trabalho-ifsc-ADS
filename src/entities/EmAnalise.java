@@ -8,9 +8,9 @@ public class EmAnalise implements Status {
     private UUID id;
     private String nome;
 
-    public EmAnalise(String nome) {
+    public EmAnalise() {
         this.id = UUID.randomUUID();
-        this.nome = nome;
+        this.nome = "Em Análise";
     }
 
 

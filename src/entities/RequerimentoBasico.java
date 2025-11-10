@@ -2,7 +2,6 @@ package entities;
 
 import interfaces.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +17,7 @@ public class RequerimentoBasico implements Requerimento {
     private List<UnidadeCurricular> unidadesCurriculares;
 
     public RequerimentoBasico(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno) {
-        this.respostaRequerimento = new RespostaRequerimentoBasico("Seu requerimento está em analise, será respondido em breve.", new EmAnalise("Em analise"));
+        this.respostaRequerimento = new RespostaRequerimentoInicial();
         this.id = UUID.randomUUID();
         this.momento = new MomentoAtual();
 

@@ -8,7 +8,7 @@ public class Main {
         // Status
         Aprovado aprovado = new Aprovado("Aprovado");
         Reprovado reprovado = new Reprovado("Reprovado");
-        EmAnalise emAnalise = new EmAnalise("Em Analise");
+        EmAnalise emAnalise = new EmAnalise();
 
         // Tipo Requerimento
         EntradaSaida entradaSaida = new EntradaSaida("Entrada Tardia e Saída Antecipada", "descricao");
