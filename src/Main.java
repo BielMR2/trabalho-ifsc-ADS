@@ -1,5 +1,6 @@
 import entities.*;
 import interfaces.IRequerimentoEmMemoria;
+import useCases.CasoDeUsoAnalisarRequerimento;
 import useCases.CasoDeUsoSolicitarRequerimento;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -40,5 +41,9 @@ public class Main {
         CasoDeUsoSolicitarRequerimento casoDeUsoSolicitarRequerimento = new CasoDeUsoSolicitarRequerimento(requerimentoEmMemoria);
 
         casoDeUsoSolicitarRequerimento.executar();
+
+        CasoDeUsoAnalisarRequerimento casoDeUsoAnalisarRequerimento = new CasoDeUsoAnalisarRequerimento(requerimentoEmMemoria);
+
+        casoDeUsoAnalisarRequerimento.executar();
     }
 }

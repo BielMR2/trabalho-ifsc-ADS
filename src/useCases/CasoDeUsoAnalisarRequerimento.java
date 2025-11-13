@@ -7,38 +7,63 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
+public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
     private IRequerimentoEmMemoria requerimentos;
     private Scanner sc = new Scanner(System.in);
 
-    public CasoDeUsoSolicitarRequerimento(IRequerimentoEmMemoria requerimentos){
+    public CasoDeUsoAnalisarRequerimento(IRequerimentoEmMemoria requerimentos){
         this.requerimentos = requerimentos;
     }
 
     @Override
     public void executar() {
-        TipoRequerimento tipoRequerimentoSelecionado = pegarTipoRequerimento();
-        sc.nextLine();
+        Status statusSelecionado = pegarStatus();
 
-        List<UnidadeCurricular> unidadeCurricularSelecionado = pegarUnidadesCurriculares();
-        sc.nextLine();
+        List<Aluno> alunos = pegarAlunosComRequerimento(statusSelecionado);
 
-        System.out.println("Envie o arquivo:");
-        String arquivo = sc.nextLine();
+        System.out.println("Selecione o aluno:");
 
-        System.out.println("Escreva a justificativa:");
-        String justificativa = sc.nextLine();
-
-        AlunoBasico arthur = new AlunoBasico("202510704000", "Arthur Antoniasse de Oliveira");
-        Requerimento requerimento = new RequerimentoBasico(arquivo, justificativa, tipoRequerimentoSelecionado, arthur);
-
-        for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado){
-            requerimento.addUnidadeCurricula(unidadeCurricular);
+        for (int i = 0; i < alunos.size(); i++) {
+            System.out.println(i + " " + alunos.get(i).nome());
         }
 
-        this.requerimentos.criarRequerimento(requerimento);
+        Aluno alunoSelecionado = alunos.get(sc.nextInt());
 
-        System.out.println("Requerimento criado com sucesso !!!");
+        List<Requerimento> requerimentosDoAluno = pegarRequerimentoByAluno(alunoSelecionado);
+
+        System.out.println("Selecione o requerimento:");
+
+        for (int i = 0; i < requerimentosDoAluno.size(); i++) {
+            Requerimento requerimento = requerimentosDoAluno.get(i);
+            System.out.println(i + " ");
+        }
+
+        Requerimento requerimentoSelecionado = requerimentosDoAluno.get(sc.nextInt());
+
+        sc.nextLine();
+
+
+
+    }
+
+    private Status pegarStatus(){
+        // Lista de Status
+        Aprovado aprovado = new Aprovado();
+        EmAnalise emAnalise = new EmAnalise();
+        Reprovado reprovado = new Reprovado();
+
+        List<Status> statuses = new ArrayList<>();
+        statuses.add(aprovado);
+        statuses.add(emAnalise);
+        statuses.add(reprovado);
+
+        System.out.println("Filtre os requerimentos pelo status:");
+
+        for (int i = 0; i < statuses.size(); i++) {
+            System.out.println(i + " " + statuses.get(i).nome());
+        }
+
+        return statuses.get(sc.nextInt());
     }
 
     private TipoRequerimento pegarTipoRequerimento(){
@@ -66,7 +91,7 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         return tipoRequerimentos.get(sc.nextInt());
     }
 
-    public List<UnidadeCurricular> pegarUnidadesCurriculares() {
+    public List<UnidadeCurricular> pegarUnidadesCurriculares(Status statusSelecionado) {
         // Lista Unidades Curriculares
         AnaliseDesenvolvimentoSistemas ads =
                 new AnaliseDesenvolvimentoSistemas("Analise e Desenvolvimento de Sistemas", 80, "ADS-01");
@@ -104,5 +129,34 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         }
 
         return selecionadas;
+    }
+
+    public List<Aluno> pegarAlunosComRequerimento(Status statusSelecionado) {
+        List<Aluno> alunos = new ArrayList<>();
+
+        for (Requerimento r : requerimentos.listarRequerimento()) {
+            if(r.respostaRequerimento().status().nome() != statusSelecionado.nome()){
+                continue;
+            }
+
+            Aluno aluno = r.aluno();
+
+            if (!alunos.contains(aluno)) {
+                alunos.add(aluno);
+            }
+        }
+        return alunos;
+    }
+
+    public List<Requerimento> pegarRequerimentoByAluno(Aluno aluno){
+        List<Requerimento> requerimentosDoAluno = new ArrayList<>();
+
+        for (Requerimento r : requerimentos.listarRequerimento()){
+            if(r.aluno() == aluno){
+                requerimentosDoAluno.add(r);
+            }
+        }
+
+        return  requerimentosDoAluno;
     }
 }

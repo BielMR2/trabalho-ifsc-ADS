@@ -8,9 +8,9 @@ public class Reprovado implements Status {
     private UUID id;
     private String nome;
 
-    public Reprovado(String nome) {
+    public Reprovado() {
         this.id = UUID.randomUUID();
-        this.nome = nome;
+        this.nome = "Reprovado";
     }
 
 
