@@ -7,9 +7,9 @@ public class EntradaSaida implements TipoRequerimento {
     private String nome;
     private String descricao;
 
-    public EntradaSaida(String nome, String descricao){
-        this.nome = nome;
-        this.descricao = descricao;
+    public EntradaSaida(){
+        this.nome = "Entrada Tardia e Saída Antecipada";
+        this.descricao = "Descrição 1";
     }
 
     @Override

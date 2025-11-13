@@ -7,9 +7,9 @@ public class ValidacaoRE implements TipoRequerimento {
     private String nome;
     private String descricao;
 
-    public ValidacaoRE(String nome, String descricao){
-        this.nome = nome;
-        this.descricao = descricao;
+    public ValidacaoRE(){
+        this.nome = "Validação de Unidade Curricular por Reconhecimento de Estudos";
+        this.descricao = "Descrição";
     }
 
     @Override

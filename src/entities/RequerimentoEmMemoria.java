@@ -1,17 +1,20 @@
 package entities;
 
 
-import interfaces.EmMemoria;
+import interfaces.IRequerimentoEmMemoria;
 import interfaces.Requerimento;
-import interfaces.TipoRequerimento;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class RequerimentoEmMemoria implements EmMemoria {
+public class RequerimentoEmMemoria implements IRequerimentoEmMemoria {
     private Map<UUID, Requerimento> requerimentos;
+
+    public RequerimentoEmMemoria() {
+        this.requerimentos = new HashMap<>();
+    }
 
     @Override
     public void criarRequerimento(Requerimento requerimento) {

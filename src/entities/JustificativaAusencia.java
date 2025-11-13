@@ -7,9 +7,9 @@ public class JustificativaAusencia implements TipoRequerimento {
     private String nome;
     private String descricao;
 
-    public JustificativaAusencia(String nome, String descricao){
-        this.nome = nome;
-        this.descricao = descricao;
+    public JustificativaAusencia(){
+        this.nome = "Justificativa de Ausência";
+        this.descricao = "Descrição";
     }
 
     @Override

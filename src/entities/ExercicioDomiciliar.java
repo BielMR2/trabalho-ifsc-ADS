@@ -7,9 +7,9 @@ public class ExercicioDomiciliar implements TipoRequerimento {
     private String nome;
     private String descricao;
 
-    public ExercicioDomiciliar(String nome, String descricao){
-        this.nome = nome;
-        this.descricao = descricao;
+    public ExercicioDomiciliar(){
+        this.nome = "Exercício Domiciliar";
+        this.descricao = "Descricao";
     }
 
     @Override
