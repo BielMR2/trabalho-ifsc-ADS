@@ -23,6 +23,11 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         List<UnidadeCurricular> unidadeCurricularSelecionado = pegarUnidadesCurriculares();
         sc.nextLine();
 
+        System.out.println("Unidades curriculares selecionada");
+        for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado){
+            System.out.println(unidadeCurricular.nome());
+        }
+
         System.out.println("Envie o arquivo:");
         String arquivo = sc.nextLine();
 
