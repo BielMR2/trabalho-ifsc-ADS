@@ -97,6 +97,7 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
             if (escolha >= 0 && escolha < unidades.size()) {
                 UnidadeCurricular uc = unidades.get(escolha);
                 selecionadas.add(uc);
+                unidades.remove(escolha);
                 System.out.println("Adicionado: " + uc.nome());
             } else {
                 System.out.println("Índice inválido! Tente novamente.");

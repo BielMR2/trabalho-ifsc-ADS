@@ -54,6 +54,16 @@ public class RequerimentoBasico implements Requerimento {
     }
 
     @Override
+    public TipoRequerimento tipoRequerimento() {
+        return this.tipoRequerimento;
+    }
+
+    @Override
+    public List<UnidadeCurricular> unidadesCurriculares() {
+        return this.unidadesCurriculares;
+    }
+
+    @Override
     public void responder(String descricao, Status status, Coordenacao coordenacao) {
         this.respostaRequerimento = new RespostaRequerimentoCompleta(descricao, status, coordenacao);
     }

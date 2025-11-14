@@ -29,21 +29,38 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
 
         Aluno alunoSelecionado = alunos.get(sc.nextInt());
 
-        List<Requerimento> requerimentosDoAluno = pegarRequerimentoByAluno(alunoSelecionado);
+        List<Requerimento> requerimentosDoAluno = pegarRequerimentoByAluno(alunoSelecionado, statusSelecionado);
 
         System.out.println("Selecione o requerimento:");
-
         for (int i = 0; i < requerimentosDoAluno.size(); i++) {
             Requerimento requerimento = requerimentosDoAluno.get(i);
-            System.out.println(i + " ");
+            System.out.println(i + " " + requerimento.tipoRequerimento().nome() + " - " + requerimento.descricao());
         }
-
         Requerimento requerimentoSelecionado = requerimentosDoAluno.get(sc.nextInt());
 
-        sc.nextLine();
+        System.out.println("Dados do requerimento:");
+        System.out.println(requerimentoSelecionado.tipoRequerimento().nome());
+        System.out.println(requerimentoSelecionado.descricao());
+        System.out.println(requerimentoSelecionado.arquivo());
 
+        for(UnidadeCurricular unidadeCurricular : requerimentoSelecionado.unidadesCurriculares()){
+            System.out.println(unidadeCurricular.nome());
+        }
 
+        if (statusSelecionado instanceof EmAnalise){
+            System.out.println("Selecione o status do requerimento:");
+            Status statusDaResposta = pegarStatusDaResposta();
+            sc.nextLine();
 
+            System.out.println("Escreva uma descrição:");
+            String descricaoDaResposta = sc.nextLine();
+
+            CoordenacaoBasico willian = new CoordenacaoBasico("1234567890", "Willian da Silva de Sousa");
+
+            requerimentoSelecionado.responder(descricaoDaResposta, statusDaResposta, willian);
+
+            System.out.println("Resposta salva com sucesso !!!");
+        }
     }
 
     private Status pegarStatus(){
@@ -58,6 +75,22 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
         statuses.add(reprovado);
 
         System.out.println("Filtre os requerimentos pelo status:");
+
+        for (int i = 0; i < statuses.size(); i++) {
+            System.out.println(i + " " + statuses.get(i).nome());
+        }
+
+        return statuses.get(sc.nextInt());
+    }
+
+    private Status pegarStatusDaResposta(){
+        // Lista de Status
+        Aprovado aprovado = new Aprovado();
+        Reprovado reprovado = new Reprovado();
+
+        List<Status> statuses = new ArrayList<>();
+        statuses.add(aprovado);
+        statuses.add(reprovado);
 
         for (int i = 0; i < statuses.size(); i++) {
             System.out.println(i + " " + statuses.get(i).nome());
@@ -135,24 +168,34 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
         List<Aluno> alunos = new ArrayList<>();
 
         for (Requerimento r : requerimentos.listarRequerimento()) {
-            if(r.respostaRequerimento().status().nome() != statusSelecionado.nome()){
+
+            if (!r.respostaRequerimento().status().nome().equals(statusSelecionado.nome())) {
                 continue;
             }
 
             Aluno aluno = r.aluno();
+            boolean jaExiste = false;
 
-            if (!alunos.contains(aluno)) {
+            for (Aluno a : alunos) {
+                if (a.matricula().equals(aluno.matricula())) {
+                    jaExiste = true;
+                    break;
+                }
+            }
+
+            if (!jaExiste) {
                 alunos.add(aluno);
             }
         }
+
         return alunos;
     }
 
-    public List<Requerimento> pegarRequerimentoByAluno(Aluno aluno){
+    public List<Requerimento> pegarRequerimentoByAluno(Aluno aluno, Status status){
         List<Requerimento> requerimentosDoAluno = new ArrayList<>();
 
         for (Requerimento r : requerimentos.listarRequerimento()){
-            if(r.aluno() == aluno){
+            if(r.aluno().matricula() == aluno.matricula() && r.respostaRequerimento().status().nome() == status.nome()){
                 requerimentosDoAluno.add(r);
             }
         }
