@@ -14,12 +14,14 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         while (true){
-            System.out.println("Selecione o caso de uso desejado: ");
+            System.out.println("\nSelecione o caso de uso desejado: ");
 
             System.out.println("1 - Solicitar Requerimento");
             System.out.println("2 - Analisar Requerimento");
 
             int opcao = sc.nextInt();
+
+
 
             if (opcao == 1){
                 CasoDeUsoSolicitarRequerimento casoDeUsoSolicitarRequerimento = new CasoDeUsoSolicitarRequerimento(requerimentoEmMemoria);

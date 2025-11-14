@@ -17,49 +17,79 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
 
     @Override
     public void executar() {
+
+        System.out.println("\n===============================================");
+        System.out.println("           ANÁLISE DE REQUERIMENTO            ");
+        System.out.println("===============================================\n");
+
         Status statusSelecionado = pegarStatus();
 
         List<Aluno> alunos = pegarAlunosComRequerimento(statusSelecionado);
 
-        System.out.println("Selecione o aluno:");
+        if(alunos.isEmpty()){
+            System.out.println("\n-----------------------------------------------");
+            System.out.println("Nenhum aluno com status: " + statusSelecionado.nome());
+            System.out.println("-----------------------------------------------\n");
 
-        for (int i = 0; i < alunos.size(); i++) {
-            System.out.println(i + " " + alunos.get(i).nome());
+            return;
         }
 
+        System.out.println("\n-----------------------------------------------");
+        System.out.println("Alunos com requerimentos no status: " + statusSelecionado.nome());
+        System.out.println("-----------------------------------------------\n");
+
+        for (int i = 0; i < alunos.size(); i++) {
+            System.out.println(i + " - " + alunos.get(i).nome());
+        }
+
+        System.out.print("\nSelecione o aluno: ");
         Aluno alunoSelecionado = alunos.get(sc.nextInt());
 
         List<Requerimento> requerimentosDoAluno = pegarRequerimentoByAluno(alunoSelecionado, statusSelecionado);
 
-        System.out.println("Selecione o requerimento:");
+        System.out.println("\n-----------------------------------------------");
+        System.out.println("Requerimentos do aluno selecionado:");
+        System.out.println("-----------------------------------------------\n");
+
         for (int i = 0; i < requerimentosDoAluno.size(); i++) {
-            Requerimento requerimento = requerimentosDoAluno.get(i);
-            System.out.println(i + " " + requerimento.tipoRequerimento().nome() + " - " + requerimento.descricao());
+            Requerimento r = requerimentosDoAluno.get(i);
+            System.out.println(i + " - " + r.tipoRequerimento().nome() + " | " + r.descricao());
         }
+
+        System.out.print("\nSelecione o requerimento: ");
         Requerimento requerimentoSelecionado = requerimentosDoAluno.get(sc.nextInt());
 
-        System.out.println("Dados do requerimento:");
-        System.out.println(requerimentoSelecionado.tipoRequerimento().nome());
-        System.out.println(requerimentoSelecionado.descricao());
-        System.out.println(requerimentoSelecionado.arquivo());
+        System.out.println("\n-----------------------------------------------");
+        System.out.println("Detalhes do requerimento:");
+        System.out.println("-----------------------------------------------\n");
 
-        for(UnidadeCurricular unidadeCurricular : requerimentoSelecionado.unidadesCurriculares()){
-            System.out.println(unidadeCurricular.nome());
+        System.out.println("Tipo: " + requerimentoSelecionado.tipoRequerimento().nome());
+        System.out.println("Descrição: " + requerimentoSelecionado.descricao());
+        System.out.println("Arquivo: " + requerimentoSelecionado.arquivo());
+
+        System.out.println("Unidades Curriculares:");
+        for(UnidadeCurricular uc : requerimentoSelecionado.unidadesCurriculares()){
+            System.out.println(" - " + uc.nome());
         }
 
         if (statusSelecionado instanceof EmAnalise){
-            System.out.println("Selecione o status do requerimento:");
+            System.out.println("\n-----------------------------------------------");
+            System.out.println("Responda o Requerimento:");
+            System.out.println("-----------------------------------------------\n");
+
             Status statusDaResposta = pegarStatusDaResposta();
             sc.nextLine();
 
-            System.out.println("Escreva uma descrição:");
+            System.out.print("Escreva uma descrição da resposta:\n> ");
             String descricaoDaResposta = sc.nextLine();
 
             CoordenacaoBasico willian = new CoordenacaoBasico("1234567890", "Willian da Silva de Sousa");
 
             requerimentoSelecionado.responder(descricaoDaResposta, statusDaResposta, willian);
 
-            System.out.println("Resposta salva com sucesso !!!");
+            System.out.println("\n===============================================");
+            System.out.println("      ✔ Resposta salva com sucesso! ✔          ");
+            System.out.println("===============================================\n");
         }
     }
 
@@ -74,17 +104,20 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
         statuses.add(emAnalise);
         statuses.add(reprovado);
 
+        System.out.println("\n-----------------------------------------------");
         System.out.println("Filtre os requerimentos pelo status:");
+        System.out.println("-----------------------------------------------\n");
 
         for (int i = 0; i < statuses.size(); i++) {
-            System.out.println(i + " " + statuses.get(i).nome());
+            System.out.println(" " + i + " - " + statuses.get(i).nome());
         }
 
+        System.out.print("\nEscolha uma opção: ");
         return statuses.get(sc.nextInt());
     }
 
     private Status pegarStatusDaResposta(){
-        // Lista de Status
+        // Lista de Status possíveis para resposta
         Aprovado aprovado = new Aprovado();
         Reprovado reprovado = new Reprovado();
 
@@ -92,76 +125,16 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
         statuses.add(aprovado);
         statuses.add(reprovado);
 
+        System.out.println("-----------------------------------------------");
+        System.out.println("Selecione o novo status do requerimento:");
+        System.out.println("-----------------------------------------------\n");
+
         for (int i = 0; i < statuses.size(); i++) {
-            System.out.println(i + " " + statuses.get(i).nome());
+            System.out.println(" " + i + " - " + statuses.get(i).nome());
         }
 
+        System.out.print("\nEscolha uma opção: ");
         return statuses.get(sc.nextInt());
-    }
-
-    private TipoRequerimento pegarTipoRequerimento(){
-        // Lista de Tipos de Requerimento
-        EntradaSaida entradaSaida = new EntradaSaida();
-        JustificativaAusencia justificativaAusencia = new JustificativaAusencia();
-        ExercicioDomiciliar exercicioDomiciliar = new ExercicioDomiciliar();
-        ValidacaoRE validacaoEA = new ValidacaoRE();
-        ValidacaoRS validacaoRS = new ValidacaoRS();
-
-
-        List<TipoRequerimento> tipoRequerimentos = new ArrayList<>();
-        tipoRequerimentos.add(entradaSaida);
-        tipoRequerimentos.add(justificativaAusencia);
-        tipoRequerimentos.add(exercicioDomiciliar);
-        tipoRequerimentos.add(validacaoEA);
-        tipoRequerimentos.add(validacaoRS);
-
-        System.out.println("Selecione a tipo de requerimento:");
-
-        for (int i = 0; i < tipoRequerimentos.size(); i++) {
-            System.out.println(i + " " + tipoRequerimentos.get(i).nome());
-        }
-
-        return tipoRequerimentos.get(sc.nextInt());
-    }
-
-    public List<UnidadeCurricular> pegarUnidadesCurriculares(Status statusSelecionado) {
-        // Lista Unidades Curriculares
-        AnaliseDesenvolvimentoSistemas ads =
-                new AnaliseDesenvolvimentoSistemas("Analise e Desenvolvimento de Sistemas", 80, "ADS-01");
-        ProgramacaoOrientadaObjetos poo =
-                new ProgramacaoOrientadaObjetos("Programação Orientada a Objetos", 60, "POO-01");
-
-        List<UnidadeCurricular> unidades = new ArrayList<>();
-        unidades.add(ads);
-        unidades.add(poo);
-
-        List<UnidadeCurricular> selecionadas = new ArrayList<>();
-
-        while (true) {
-            System.out.println("\nSelecione uma unidade curricular (digite o número):");
-            System.out.println("Digite -1 para finalizar.");
-
-            for (int i = 0; i < unidades.size(); i++) {
-                System.out.println(i + " - " + unidades.get(i).nome());
-            }
-
-            System.out.print("Escolha: ");
-            int escolha = sc.nextInt();
-
-            if (escolha == -1) {
-                break;
-            }
-
-            if (escolha >= 0 && escolha < unidades.size()) {
-                UnidadeCurricular uc = unidades.get(escolha);
-                selecionadas.add(uc);
-                System.out.println("Adicionado: " + uc.nome());
-            } else {
-                System.out.println("Índice inválido! Tente novamente.");
-            }
-        }
-
-        return selecionadas;
     }
 
     public List<Aluno> pegarAlunosComRequerimento(Status statusSelecionado) {

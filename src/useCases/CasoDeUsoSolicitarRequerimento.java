@@ -17,21 +17,29 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
 
     @Override
     public void executar() {
+
+        System.out.println("\n===============================================");
+        System.out.println("           SOLICITAÇÃO DE REQUERIMENTO        ");
+        System.out.println("===============================================\n");
+
         TipoRequerimento tipoRequerimentoSelecionado = pegarTipoRequerimento();
         sc.nextLine();
 
+        System.out.println("\n-----------------------------------------------");
         List<UnidadeCurricular> unidadeCurricularSelecionado = pegarUnidadesCurriculares();
         sc.nextLine();
 
-        System.out.println("Unidades curriculares selecionada");
+        System.out.println("\n-----------------------------------------------");
+        System.out.println("Unidades curriculares selecionadas:");
         for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado){
-            System.out.println(unidadeCurricular.nome());
+            System.out.println(" - " + unidadeCurricular.nome());
         }
 
-        System.out.println("Envie o arquivo:");
+        System.out.println("\n-----------------------------------------------");
+        System.out.print("Envie o arquivo: ");
         String arquivo = sc.nextLine();
 
-        System.out.println("Escreva a justificativa:");
+        System.out.print("\nEscreva a justificativa:\n> ");
         String justificativa = sc.nextLine();
 
         AlunoBasico arthur = new AlunoBasico("202510704000", "Arthur Antoniasse de Oliveira");
@@ -43,7 +51,9 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
 
         this.requerimentos.criarRequerimento(requerimento);
 
-        System.out.println("Requerimento criado com sucesso !!!");
+        System.out.println("\n===============================================");
+        System.out.println("      ✔ Requerimento criado com sucesso! ✔     ");
+        System.out.println("===============================================\n");
     }
 
     private TipoRequerimento pegarTipoRequerimento(){
@@ -54,7 +64,6 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         ValidacaoRE validacaoEA = new ValidacaoRE();
         ValidacaoRS validacaoRS = new ValidacaoRS();
 
-
         List<TipoRequerimento> tipoRequerimentos = new ArrayList<>();
         tipoRequerimentos.add(entradaSaida);
         tipoRequerimentos.add(justificativaAusencia);
@@ -62,12 +71,14 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         tipoRequerimentos.add(validacaoEA);
         tipoRequerimentos.add(validacaoRS);
 
-        System.out.println("Selecione a tipo de requerimento:");
+        System.out.println("\n-----------------------------------------------");
+        System.out.println("Selecione o tipo de requerimento:\n");
 
         for (int i = 0; i < tipoRequerimentos.size(); i++) {
-            System.out.println(i + " " + tipoRequerimentos.get(i).nome());
+            System.out.println(" " + i + " - " + tipoRequerimentos.get(i).nome());
         }
 
+        System.out.print("\nEscolha uma opção: ");
         return tipoRequerimentos.get(sc.nextInt());
     }
 
@@ -84,15 +95,16 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
 
         List<UnidadeCurricular> selecionadas = new ArrayList<>();
 
-        while (true) {
-            System.out.println("\nSelecione uma unidade curricular (digite o número):");
-            System.out.println("Digite -1 para finalizar.");
+        while (!unidades.isEmpty()) {
+            System.out.println("\n-----------------------------------------------");
+            System.out.println("Selecione uma unidade curricular:");
+            System.out.println("(Digite -1 para finalizar)\n");
 
             for (int i = 0; i < unidades.size(); i++) {
-                System.out.println(i + " - " + unidades.get(i).nome());
+                System.out.println(" " + i + " - " + unidades.get(i).nome());
             }
 
-            System.out.print("Escolha: ");
+            System.out.print("\nEscolha: ");
             int escolha = sc.nextInt();
 
             if (escolha == -1) {
@@ -103,9 +115,9 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
                 UnidadeCurricular uc = unidades.get(escolha);
                 selecionadas.add(uc);
                 unidades.remove(escolha);
-                System.out.println("Adicionado: " + uc.nome());
+                System.out.println("✔ Adicionado: " + uc.nome());
             } else {
-                System.out.println("Índice inválido! Tente novamente.");
+                System.out.println("✘ Índice inválido! Tente novamente.");
             }
         }
 
