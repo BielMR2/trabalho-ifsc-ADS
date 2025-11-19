@@ -43,7 +43,7 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         String justificativa = sc.nextLine();
 
         AlunoBasico arthur = new AlunoBasico("202510704000", "Arthur Antoniasse de Oliveira");
-        Requerimento requerimento = new RequerimentoBasico(arquivo, justificativa, tipoRequerimentoSelecionado, arthur);
+        Requerimento requerimento = new RequerimentoEmAnalise(arquivo, justificativa, tipoRequerimentoSelecionado, arthur);
 
         for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado){
             requerimento.addUnidadeCurricula(unidadeCurricular);

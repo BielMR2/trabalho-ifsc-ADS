@@ -22,6 +22,11 @@ public class RequerimentoEmMemoria implements IRequerimentoEmMemoria {
     }
 
     @Override
+    public void removerRequerimento(Requerimento requerimento) {
+        this.requerimentos.remove(requerimento.id());
+    }
+
+    @Override
     public List<Requerimento> listarRequerimento() {
         return this.requerimentos.values().stream().toList();
     }

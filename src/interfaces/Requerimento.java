@@ -8,9 +8,10 @@ public interface Requerimento {
     String arquivo();
     String descricao();
     Aluno aluno();
-    RespostaRequerimento respostaRequerimento();
+    RespostaRequerimento respostaRequerimento() throws Exception;
     TipoRequerimento tipoRequerimento();
     List<UnidadeCurricular> unidadesCurriculares();
-    void responder(String descricao, Status status, Coordenacao coordenacao);
+    Requerimento aprovar(String descricao, Coordenacao coordenacao) throws Exception;
+    Requerimento reprovar(String descricao, Coordenacao coordenacao) throws Exception;
     void addUnidadeCurricula(UnidadeCurricular unidadeCurricular);
 }

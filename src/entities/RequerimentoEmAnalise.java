@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class RequerimentoBasico implements Requerimento {
+public class RequerimentoEmAnalise implements Requerimento {
     private UUID id;
     private String arquivo;
     private String descricao;
@@ -16,7 +16,7 @@ public class RequerimentoBasico implements Requerimento {
     private Momento momento;
     private List<UnidadeCurricular> unidadesCurriculares;
 
-    public RequerimentoBasico(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno) {
+    public RequerimentoEmAnalise(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno) {
         this.respostaRequerimento = new RespostaRequerimentoInicial();
         this.id = UUID.randomUUID();
         this.momento = new MomentoAtual();
@@ -30,7 +30,7 @@ public class RequerimentoBasico implements Requerimento {
 
     @Override
     public UUID id() {
-        return this.id;
+        return null;
     }
 
     @Override
@@ -64,8 +64,13 @@ public class RequerimentoBasico implements Requerimento {
     }
 
     @Override
-    public void responder(String descricao, Status status, Coordenacao coordenacao) {
-        this.respostaRequerimento = new RespostaRequerimentoCompleta(descricao, status, coordenacao);
+    public Requerimento aprovar(String descricao, Coordenacao coordenacao) throws Exception {
+        return new RequerimentoDeferido(this, descricao, coordenacao);
+    }
+
+    @Override
+    public Requerimento reprovar(String descricao, Coordenacao coordenacao) throws Exception {
+        return new RequerimentoIndeferido(this, descricao, coordenacao);
     }
 
     @Override

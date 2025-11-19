@@ -1,6 +1,6 @@
 package interfaces;
 
 public interface CasoDeUso {
-    void executar();
+    void executar() throws Exception;
 }
 

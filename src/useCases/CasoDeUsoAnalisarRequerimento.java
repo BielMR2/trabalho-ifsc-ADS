@@ -16,8 +16,7 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
     }
 
     @Override
-    public void executar() {
-
+    public void executar() throws Exception {
         System.out.println("\n===============================================");
         System.out.println("           ANÁLISE DE REQUERIMENTO            ");
         System.out.println("===============================================\n");
@@ -77,7 +76,11 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
             System.out.println("Responda o Requerimento:");
             System.out.println("-----------------------------------------------\n");
 
-            Status statusDaResposta = pegarStatusDaResposta();
+            System.out.println("Escolha uma opção:");
+            System.out.println("1 - Aprovado");
+            System.out.println("2 - Reprovado");
+
+            int opcao = sc.nextInt();
             sc.nextLine();
 
             System.out.print("Escreva uma descrição da resposta:\n> ");
@@ -85,7 +88,13 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
 
             CoordenacaoBasico willian = new CoordenacaoBasico("1234567890", "Willian da Silva de Sousa");
 
-            requerimentoSelecionado.responder(descricaoDaResposta, statusDaResposta, willian);
+            if(opcao == 1){
+                requerimentos.criarRequerimento(requerimentoSelecionado.aprovar(descricaoDaResposta, willian));
+
+            }
+            if(opcao == 2){
+                requerimentos.criarRequerimento(requerimentoSelecionado.reprovar(descricaoDaResposta, willian));
+            }
 
             System.out.println("\n===============================================");
             System.out.println("      ✔ Resposta salva com sucesso! ✔          ");
@@ -137,7 +146,7 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
         return statuses.get(sc.nextInt());
     }
 
-    public List<Aluno> pegarAlunosComRequerimento(Status statusSelecionado) {
+    public List<Aluno> pegarAlunosComRequerimento(Status statusSelecionado) throws Exception {
         List<Aluno> alunos = new ArrayList<>();
 
         for (Requerimento r : requerimentos.listarRequerimento()) {
@@ -164,7 +173,7 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
         return alunos;
     }
 
-    public List<Requerimento> pegarRequerimentoByAluno(Aluno aluno, Status status){
+    public List<Requerimento> pegarRequerimentoByAluno(Aluno aluno, Status status) throws Exception {
         List<Requerimento> requerimentosDoAluno = new ArrayList<>();
 
         for (Requerimento r : requerimentos.listarRequerimento()){
