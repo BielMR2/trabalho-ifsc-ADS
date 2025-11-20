@@ -2,6 +2,7 @@ package useCases;
 
 import entities.*;
 import interfaces.*;
+import utils.Console;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
     private IRequerimentoEmMemoria requerimentos;
     private Scanner sc = new Scanner(System.in);
+    private Console console = new Console();
 
     public CasoDeUsoSolicitarRequerimento(IRequerimentoEmMemoria requerimentos){
         this.requerimentos = requerimentos;
@@ -18,64 +20,56 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
     @Override
     public void executar() {
 
-        System.out.println("\n===============================================");
-        System.out.println("           SOLICITAÇÃO DE REQUERIMENTO        ");
-        System.out.println("===============================================\n");
+        console.titulo("SOLICITAÇÃO DE REQUERIMENTO");
 
         TipoRequerimento tipoRequerimentoSelecionado = pegarTipoRequerimento();
         sc.nextLine();
 
-        System.out.println("\n-----------------------------------------------");
+        console.bloco("Selecione as unidades curriculares:");
         List<UnidadeCurricular> unidadeCurricularSelecionado = pegarUnidadesCurriculares();
         sc.nextLine();
 
-        System.out.println("\n-----------------------------------------------");
-        System.out.println("Unidades curriculares selecionadas:");
-        for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado){
-            System.out.println(" - " + unidadeCurricular.nome());
+        console.bloco("Unidades curriculares selecionadas:");
+        for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado) {
+            console.msg(" - " + unidadeCurricular.nome());
         }
 
-        System.out.println("\n-----------------------------------------------");
-        System.out.print("Envie o arquivo: ");
+        console.bloco("Envio de arquivo");
+        System.out.print("Arquivo: ");
         String arquivo = sc.nextLine();
 
         System.out.print("\nEscreva a justificativa:\n> ");
         String justificativa = sc.nextLine();
 
         AlunoBasico arthur = new AlunoBasico("202510704000", "Arthur Antoniasse de Oliveira");
-        Requerimento requerimento = new RequerimentoEmAnalise(arquivo, justificativa, tipoRequerimentoSelecionado, arthur);
+        Requerimento requerimento =
+                new RequerimentoEmAnalise(arquivo, justificativa, tipoRequerimentoSelecionado, arthur);
 
-        for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado){
-            requerimento.addUnidadeCurricula(unidadeCurricular);
+        for (UnidadeCurricular unidade : unidadeCurricularSelecionado){
+            requerimento.addUnidadeCurricula(unidade);
         }
 
         this.requerimentos.criarRequerimento(requerimento);
 
-        System.out.println("\n===============================================");
-        System.out.println("      ✔ Requerimento criado com sucesso! ✔     ");
-        System.out.println("===============================================\n");
+        console.titulo("✔ Requerimento criado com sucesso! ✔");
     }
 
+    // ============================================================
+    // Selecionar tipo de requerimento
+    // ============================================================
     private TipoRequerimento pegarTipoRequerimento(){
-        // Lista de Tipos de Requerimento
-        EntradaSaida entradaSaida = new EntradaSaida();
-        JustificativaAusencia justificativaAusencia = new JustificativaAusencia();
-        ExercicioDomiciliar exercicioDomiciliar = new ExercicioDomiciliar();
-        ValidacaoRE validacaoEA = new ValidacaoRE();
-        ValidacaoRS validacaoRS = new ValidacaoRS();
+        List<TipoRequerimento> tipoRequerimentos = List.of(
+                new EntradaSaida(),
+                new JustificativaAusencia(),
+                new ExercicioDomiciliar(),
+                new ValidacaoRE(),
+                new ValidacaoRS()
+        );
 
-        List<TipoRequerimento> tipoRequerimentos = new ArrayList<>();
-        tipoRequerimentos.add(entradaSaida);
-        tipoRequerimentos.add(justificativaAusencia);
-        tipoRequerimentos.add(exercicioDomiciliar);
-        tipoRequerimentos.add(validacaoEA);
-        tipoRequerimentos.add(validacaoRS);
-
-        System.out.println("\n-----------------------------------------------");
-        System.out.println("Selecione o tipo de requerimento:\n");
+        console.bloco("Selecione o tipo de requerimento:");
 
         for (int i = 0; i < tipoRequerimentos.size(); i++) {
-            System.out.println(" " + i + " - " + tipoRequerimentos.get(i).nome());
+            console.msg(" " + i + " - " + tipoRequerimentos.get(i).nome());
         }
 
         System.out.print("\nEscolha uma opção: ");
@@ -83,25 +77,22 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
     }
 
     public List<UnidadeCurricular> pegarUnidadesCurriculares() {
-        // Lista Unidades Curriculares
-        AnaliseDesenvolvimentoSistemas ads =
-                new AnaliseDesenvolvimentoSistemas("Analise e Desenvolvimento de Sistemas", 80, "ADS-01");
-        ProgramacaoOrientadaObjetos poo =
-                new ProgramacaoOrientadaObjetos("Programação Orientada a Objetos", 60, "POO-01");
 
-        List<UnidadeCurricular> unidades = new ArrayList<>();
-        unidades.add(ads);
-        unidades.add(poo);
+        List<UnidadeCurricular> unidades = new ArrayList<>(List.of(
+                new AnaliseDesenvolvimentoSistemas(
+                        "Analise e Desenvolvimento de Sistemas", 80, "ADS-01"),
+                new ProgramacaoOrientadaObjetos(
+                        "Programação Orientada a Objetos", 60, "POO-01")
+        ));
 
         List<UnidadeCurricular> selecionadas = new ArrayList<>();
 
         while (!unidades.isEmpty()) {
-            System.out.println("\n-----------------------------------------------");
-            System.out.println("Selecione uma unidade curricular:");
-            System.out.println("(Digite -1 para finalizar)\n");
+
+            console.bloco("Selecione uma unidade curricular (ou -1 para finalizar):");
 
             for (int i = 0; i < unidades.size(); i++) {
-                System.out.println(" " + i + " - " + unidades.get(i).nome());
+                console.msg(" " + i + " - " + unidades.get(i).nome());
             }
 
             System.out.print("\nEscolha: ");
@@ -115,9 +106,9 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
                 UnidadeCurricular uc = unidades.get(escolha);
                 selecionadas.add(uc);
                 unidades.remove(escolha);
-                System.out.println("✔ Adicionado: " + uc.nome());
+                console.msg("✔ Adicionado: " + uc.nome());
             } else {
-                System.out.println("✘ Índice inválido! Tente novamente.");
+                console.msg("✘ Índice inválido! Tente novamente.");
             }
         }
 
