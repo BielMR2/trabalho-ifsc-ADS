@@ -13,5 +13,5 @@ public interface Requerimento {
     List<UnidadeCurricular> unidadesCurriculares();
     Requerimento aprovar(String descricao, Coordenacao coordenacao) throws Exception;
     Requerimento reprovar(String descricao, Coordenacao coordenacao) throws Exception;
-    void addUnidadeCurricula(UnidadeCurricular unidadeCurricular);
+    void addUnidadeCurricular(UnidadeCurricular unidadeCurricular);
 }

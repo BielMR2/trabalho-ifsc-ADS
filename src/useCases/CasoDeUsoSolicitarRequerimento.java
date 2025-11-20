@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
-    private IRequerimentoEmMemoria requerimentos;
+    private RepositorioRequerimento requerimentos;
     private Scanner sc = new Scanner(System.in);
     private Console console = new Console();
 
-    public CasoDeUsoSolicitarRequerimento(IRequerimentoEmMemoria requerimentos){
+    public CasoDeUsoSolicitarRequerimento(RepositorioRequerimento requerimentos){
         this.requerimentos = requerimentos;
     }
 
@@ -46,7 +46,7 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
                 new RequerimentoEmAnalise(arquivo, justificativa, tipoRequerimentoSelecionado, arthur);
 
         for (UnidadeCurricular unidade : unidadeCurricularSelecionado){
-            requerimento.addUnidadeCurricula(unidade);
+            requerimento.addUnidadeCurricular(unidade);
         }
 
         this.requerimentos.criarRequerimento(requerimento);

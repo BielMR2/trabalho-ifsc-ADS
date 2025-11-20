@@ -1,6 +1,5 @@
 import entities.*;
-import interfaces.IRequerimentoEmMemoria;
-import interfaces.Requerimento;
+import interfaces.RepositorioRequerimento;
 import useCases.CasoDeUsoAnalisarRequerimento;
 import useCases.CasoDeUsoSolicitarRequerimento;
 
@@ -10,7 +9,7 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws Exception {
-        IRequerimentoEmMemoria requerimentoEmMemoria = new RequerimentoEmMemoria();
+        RepositorioRequerimento requerimentoEmMemoria = new RequerimentoEmMemoria();
 
         Scanner sc = new Scanner(System.in);
 

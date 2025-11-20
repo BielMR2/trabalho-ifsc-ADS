@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
-    private IRequerimentoEmMemoria requerimentos;
+    private RepositorioRequerimento requerimentos;
     private Scanner sc = new Scanner(System.in);
     private Console console = new Console();
 
-    public CasoDeUsoAnalisarRequerimento(IRequerimentoEmMemoria requerimentos){
+    public CasoDeUsoAnalisarRequerimento(RepositorioRequerimento requerimentos){
         this.requerimentos = requerimentos;
     }
 

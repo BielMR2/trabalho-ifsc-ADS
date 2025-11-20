@@ -1,7 +1,7 @@
 package entities;
 
 
-import interfaces.IRequerimentoEmMemoria;
+import interfaces.RepositorioRequerimento;
 import interfaces.Requerimento;
 
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class RequerimentoEmMemoria implements IRequerimentoEmMemoria {
+public class RequerimentoEmMemoria implements RepositorioRequerimento {
     private Map<UUID, Requerimento> requerimentos;
 
     public RequerimentoEmMemoria() {

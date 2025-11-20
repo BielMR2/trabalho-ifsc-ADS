@@ -61,7 +61,7 @@ public class RequerimentoIndeferido implements Requerimento {
     }
 
     @Override
-    public void addUnidadeCurricula(UnidadeCurricular unidadeCurricular) {
+    public void addUnidadeCurricular(UnidadeCurricular unidadeCurricular) {
         this.requerimento.unidadesCurriculares().add(unidadeCurricular);
     }
 }

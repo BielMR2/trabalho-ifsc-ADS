@@ -30,7 +30,7 @@ public class RequerimentoEmAnalise implements Requerimento {
 
     @Override
     public UUID id() {
-        return null;
+        return this.id;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class RequerimentoEmAnalise implements Requerimento {
     }
 
     @Override
-    public void addUnidadeCurricula(UnidadeCurricular unidadeCurricular) {
+    public void addUnidadeCurricular(UnidadeCurricular unidadeCurricular) {
         this.unidadesCurriculares.add(unidadeCurricular);
     }
 }
