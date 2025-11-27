@@ -5,7 +5,7 @@ import interfaces.*;
 import java.util.List;
 import java.util.UUID;
 
-public class RequerimentoDeferido implements Requerimento {
+public class RequerimentoDeferido implements RequerimentoRespondido {
     private Requerimento requerimento;
     private RespostaRequerimento respostaRequerimento;
 
@@ -48,20 +48,5 @@ public class RequerimentoDeferido implements Requerimento {
     @Override
     public List<UnidadeCurricular> unidadesCurriculares() {
         return this.requerimento.unidadesCurriculares();
-    }
-
-    @Override
-    public Requerimento aprovar(String descricao, Coordenacao coordenacao) throws Exception {
-        throw new Exception("Requerimento Deferido não pode ser aprovado.");
-    }
-
-    @Override
-    public Requerimento reprovar(String descricao, Coordenacao coordenacao) throws Exception {
-        throw new Exception("Requerimento Deferido não pode ser reprovado.");
-    }
-
-    @Override
-    public void addUnidadeCurricular(UnidadeCurricular unidadeCurricular) {
-        this.requerimento.unidadesCurriculares().add(unidadeCurricular);
     }
 }

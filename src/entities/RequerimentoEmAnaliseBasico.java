@@ -6,21 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class RequerimentoEmAnalise implements Requerimento {
+public class RequerimentoEmAnaliseBasico implements RequerimentoEmAnalise {
     private UUID id;
     private String arquivo;
     private String descricao;
     private TipoRequerimento tipoRequerimento;
     private Aluno aluno;
     private RespostaRequerimento respostaRequerimento;
-    private Momento momento;
     private List<UnidadeCurricular> unidadesCurriculares;
 
-    public RequerimentoEmAnalise(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno) {
+    public RequerimentoEmAnaliseBasico(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno) {
         this.respostaRequerimento = new RespostaRequerimentoInicial();
         this.id = UUID.randomUUID();
-        this.momento = new MomentoAtual();
-
         this.arquivo = arquivo;
         this.descricao = descricao;
         this.tipoRequerimento = tipoRequerimento;
@@ -64,17 +61,17 @@ public class RequerimentoEmAnalise implements Requerimento {
     }
 
     @Override
-    public Requerimento aprovar(String descricao, Coordenacao coordenacao) throws Exception {
+    public void addUnidadeCurricular(UnidadeCurricular unidadeCurricular) {
+        this.unidadesCurriculares.add(unidadeCurricular);
+    }
+
+    @Override
+    public RequerimentoRespondido aprovar(String descricao, Coordenacao coordenacao) {
         return new RequerimentoDeferido(this, descricao, coordenacao);
     }
 
     @Override
-    public Requerimento reprovar(String descricao, Coordenacao coordenacao) throws Exception {
+    public RequerimentoRespondido reprovar(String descricao, Coordenacao coordenacao) {
         return new RequerimentoIndeferido(this, descricao, coordenacao);
-    }
-
-    @Override
-    public void addUnidadeCurricular(UnidadeCurricular unidadeCurricular) {
-        this.unidadesCurriculares.add(unidadeCurricular);
     }
 }

@@ -63,8 +63,7 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
             console.msg(" - " + uc.nome());
         }
 
-        if (statusSelecionado instanceof EmAnalise) {
-
+        if (requerimentoSelecionado instanceof RequerimentoEmAnalise reqEmAnaliseSelecionado) {
             console.bloco("Responda o Requerimento:");
             console.msg("Escolha uma opção:");
             console.msg("1 - Aprovado");
@@ -81,11 +80,11 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
 
             if (opcao == 1) {
                 requerimentos.criarRequerimento(
-                        requerimentoSelecionado.aprovar(descricaoDaResposta, willian)
+                        reqEmAnaliseSelecionado.aprovar(descricaoDaResposta, willian)
                 );
             } else if (opcao == 2) {
                 requerimentos.criarRequerimento(
-                        requerimentoSelecionado.reprovar(descricaoDaResposta, willian)
+                        reqEmAnaliseSelecionado.reprovar(descricaoDaResposta, willian)
                 );
             }
 
@@ -120,10 +119,10 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
             }
 
             Aluno aluno = r.aluno();
-            boolean jaExiste = alunos.stream()
+            boolean alunoJaExiste = alunos.stream()
                     .anyMatch(a -> a.matricula().equals(aluno.matricula()));
 
-            if (!jaExiste) {
+            if (!alunoJaExiste) {
                 alunos.add(aluno);
             }
         }
