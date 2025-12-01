@@ -11,4 +11,5 @@ public interface Requerimento {
     RespostaRequerimento respostaRequerimento();
     TipoRequerimento tipoRequerimento();
     List<UnidadeCurricular> unidadesCurriculares();
+    Momento momento();
 }

@@ -14,6 +14,7 @@ public class RequerimentoEmAnaliseBasico implements RequerimentoEmAnalise {
     private Aluno aluno;
     private RespostaRequerimento respostaRequerimento;
     private List<UnidadeCurricular> unidadesCurriculares;
+    private Momento momentoCriacao;
 
     public RequerimentoEmAnaliseBasico(String arquivo, String descricao, TipoRequerimento tipoRequerimento, Aluno aluno) {
         this.respostaRequerimento = new RespostaRequerimentoInicial();
@@ -23,6 +24,7 @@ public class RequerimentoEmAnaliseBasico implements RequerimentoEmAnalise {
         this.tipoRequerimento = tipoRequerimento;
         this.aluno = aluno;
         this.unidadesCurriculares = new ArrayList<>();
+        this.momentoCriacao = new MomentoAtual();
     }
 
     @Override
@@ -59,6 +61,9 @@ public class RequerimentoEmAnaliseBasico implements RequerimentoEmAnalise {
     public List<UnidadeCurricular> unidadesCurriculares() {
         return this.unidadesCurriculares;
     }
+
+    @Override
+    public Momento momento() { return this.momentoCriacao; }
 
     @Override
     public void addUnidadeCurricular(UnidadeCurricular unidadeCurricular) {

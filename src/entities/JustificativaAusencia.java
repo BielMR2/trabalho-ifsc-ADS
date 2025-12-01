@@ -6,10 +6,12 @@ public class JustificativaAusencia implements TipoRequerimento {
     private Integer id;
     private String nome;
     private String descricao;
+    private Boolean selecionaUC;
 
     public JustificativaAusencia(){
         this.nome = "Justificativa de Ausência";
         this.descricao = "Descrição";
+        this.selecionaUC = true;
     }
 
     @Override
@@ -26,4 +28,7 @@ public class JustificativaAusencia implements TipoRequerimento {
     public String descricao() {
         return this.descricao;
     }
+
+    @Override
+    public Boolean selecionaUC() { return this.selecionaUC; }
 }

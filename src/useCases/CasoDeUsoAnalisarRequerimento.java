@@ -46,7 +46,7 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
 
         for (int i = 0; i < requerimentosDoAluno.size(); i++) {
             Requerimento r = requerimentosDoAluno.get(i);
-            console.msg(i + " - " + r.tipoRequerimento().nome() + " | " + r.descricao());
+            console.msg(i + " - " + r.tipoRequerimento().nome() + " | " + r.descricao() + " | " + r.momento().instanteFormatado());
         }
 
         System.out.print("\nSelecione o requerimento: ");
@@ -57,10 +57,15 @@ public class CasoDeUsoAnalisarRequerimento implements CasoDeUso {
         console.msg("Tipo: " + requerimentoSelecionado.tipoRequerimento().nome());
         console.msg("Descrição: " + requerimentoSelecionado.descricao());
         console.msg("Arquivo: " + requerimentoSelecionado.arquivo());
-        console.msg("Unidades Curriculares:");
-
-        for (UnidadeCurricular uc : requerimentoSelecionado.unidadesCurriculares()) {
-            console.msg(" - " + uc.nome());
+        if(!requerimentoSelecionado.unidadesCurriculares().isEmpty()){
+            console.msg("Unidades Curriculares:");
+            for (UnidadeCurricular uc : requerimentoSelecionado.unidadesCurriculares()) {
+                console.msg(" - " + uc.nome());
+            }
+        }
+        console.msg("Data criação: " + requerimentoSelecionado.momento().instanteFormatado());
+        if(requerimentoSelecionado instanceof RequerimentoRespondido){
+            console.msg("Data resposta: " + requerimentoSelecionado.respostaRequerimento().momentoResposta().instanteFormatado());
         }
 
         if (requerimentoSelecionado instanceof RequerimentoEmAnalise reqEmAnaliseSelecionado) {

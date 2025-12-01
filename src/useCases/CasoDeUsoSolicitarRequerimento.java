@@ -25,28 +25,32 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         TipoRequerimento tipoRequerimentoSelecionado = pegarTipoRequerimento();
         sc.nextLine();
 
-        console.bloco("Selecione as unidades curriculares:");
-        List<UnidadeCurricular> unidadeCurricularSelecionado = pegarUnidadesCurriculares();
-        sc.nextLine();
+        List<UnidadeCurricular> unidadeCurricularSelecionado = new ArrayList<>();
+        if (tipoRequerimentoSelecionado.selecionaUC()) {
+            unidadeCurricularSelecionado = pegarUnidadesCurriculares();
+            console.bloco("Selecione as unidades curriculares:");
+            sc.nextLine();
 
-        console.bloco("Unidades curriculares selecionadas:");
-        for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado) {
-            console.msg(" - " + unidadeCurricular.nome());
+            console.bloco("Unidades curriculares selecionadas:");
+            for (UnidadeCurricular unidadeCurricular : unidadeCurricularSelecionado) {
+                console.msg(" - " + unidadeCurricular.nome());
+            }
         }
 
         console.bloco("Envio de arquivo");
-        System.out.print("Arquivo: ");
         String arquivo = sc.nextLine();
 
-        System.out.print("\nEscreva a justificativa:\n> ");
+        console.msg("\nEscreva a justificativa:\n> ");
         String justificativa = sc.nextLine();
 
         AlunoBasico arthur = new AlunoBasico("202510704000", "Arthur Antoniasse de Oliveira");
         RequerimentoEmAnalise requerimento =
                 new RequerimentoEmAnaliseBasico(arquivo, justificativa, tipoRequerimentoSelecionado, arthur);
 
-        for (UnidadeCurricular unidade : unidadeCurricularSelecionado){
-            requerimento.addUnidadeCurricular(unidade);
+        if (!unidadeCurricularSelecionado.isEmpty()){
+            for (UnidadeCurricular unidade : unidadeCurricularSelecionado){
+                requerimento.addUnidadeCurricular(unidade);
+            }
         }
 
         this.requerimentos.criarRequerimento(requerimento);
@@ -63,7 +67,9 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
                 new JustificativaAusencia(),
                 new ExercicioDomiciliar(),
                 new ValidacaoRE(),
-                new ValidacaoRS()
+                new ValidacaoRS(),
+                new TrancamentoMatricula(),
+                new CancelamentoMatricula()
         );
 
         console.bloco("Selecione o tipo de requerimento:");
@@ -88,8 +94,7 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
         List<UnidadeCurricular> selecionadas = new ArrayList<>();
 
         while (!unidades.isEmpty()) {
-
-            console.bloco("Selecione uma unidade curricular (ou -1 para finalizar):");
+            console.bloco("Selecione uma unidade curricular (-1 para finalizar):");
 
             for (int i = 0; i < unidades.size(); i++) {
                 console.msg(" " + i + " - " + unidades.get(i).nome());

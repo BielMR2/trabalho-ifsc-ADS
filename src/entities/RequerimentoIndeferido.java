@@ -8,11 +8,13 @@ import java.util.UUID;
 public class RequerimentoIndeferido implements RequerimentoRespondido {
     private Requerimento requerimento;
     private RespostaRequerimento respostaRequerimento;
+    private Momento momentoCriacao;
 
     public RequerimentoIndeferido(Requerimento requerimento, String descricao, Coordenacao coordenacao) {
         this.requerimento = requerimento;
 
         this.respostaRequerimento = new RespostaRequerimentoCompleta(descricao, new Reprovado(), coordenacao);
+        this.momentoCriacao = new MomentoAtual();
     }
 
     @Override
@@ -49,4 +51,7 @@ public class RequerimentoIndeferido implements RequerimentoRespondido {
     public List<UnidadeCurricular> unidadesCurriculares() {
         return this.requerimento.unidadesCurriculares();
     }
+
+    @Override
+    public Momento momento() { return this.momentoCriacao; }
 }

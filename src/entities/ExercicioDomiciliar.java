@@ -6,10 +6,12 @@ public class ExercicioDomiciliar implements TipoRequerimento {
     private Integer id;
     private String nome;
     private String descricao;
+    private Boolean selecionaUC;
 
     public ExercicioDomiciliar(){
         this.nome = "Exercício Domiciliar";
         this.descricao = "Descricao";
+        this.selecionaUC = true;
     }
 
     @Override
@@ -26,4 +28,7 @@ public class ExercicioDomiciliar implements TipoRequerimento {
     public String descricao() {
         return this.descricao;
     }
+
+    @Override
+    public Boolean selecionaUC() { return this.selecionaUC; }
 }

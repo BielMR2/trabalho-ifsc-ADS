@@ -8,11 +8,11 @@ import interfaces.Status;
 public class RespostaRequerimentoCompleta implements RespostaRequerimento {
     private String descricao;
     private Status status;
-    private Momento momento;
+    private Momento momentoResposta;
     private Coordenacao coordenacao;
 
     public RespostaRequerimentoCompleta(String descricao, Status status, Coordenacao coordenacao) {
-        this.momento = new MomentoAtual();
+        this.momentoResposta = new MomentoAtual();
 
         this.descricao = descricao;
         this.status = status;
@@ -28,4 +28,7 @@ public class RespostaRequerimentoCompleta implements RespostaRequerimento {
     public Status status() {
         return this.status;
     }
+
+    @Override
+    public Momento momentoResposta() { return this.momentoResposta; }
 }

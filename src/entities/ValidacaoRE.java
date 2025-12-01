@@ -6,10 +6,12 @@ public class ValidacaoRE implements TipoRequerimento {
     private Integer id;
     private String nome;
     private String descricao;
+    private Boolean selecionaUC;
 
     public ValidacaoRE(){
         this.nome = "Validação de Unidade Curricular por Reconhecimento de Estudos";
         this.descricao = "Descrição";
+        this.selecionaUC = true;
     }
 
     @Override
@@ -26,4 +28,7 @@ public class ValidacaoRE implements TipoRequerimento {
     public String descricao() {
         return this.descricao;
     }
+
+    @Override
+    public Boolean selecionaUC() { return this.selecionaUC; }
 }

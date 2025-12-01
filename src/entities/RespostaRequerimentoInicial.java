@@ -6,10 +6,10 @@ import interfaces.Status;
 
 public class RespostaRequerimentoInicial implements RespostaRequerimento {
     private Status status;
-    private Momento momento;
+    private Momento momentoResposta;
 
     public RespostaRequerimentoInicial() {
-        this.momento = new MomentoAtual();
+        this.momentoResposta = new MomentoAtual();
 
         this.status = new EmAnalise() {
         };
@@ -24,4 +24,7 @@ public class RespostaRequerimentoInicial implements RespostaRequerimento {
     public Status status() {
         return this.status;
     }
+
+    @Override
+    public Momento momentoResposta() { return this.momentoResposta; }
 }

@@ -2,16 +2,16 @@ package entities;
 
 import interfaces.TipoRequerimento;
 
-public class EntradaSaida implements TipoRequerimento {
+public class CancelamentoMatricula implements TipoRequerimento {
     private Integer id;
     private String nome;
     private String descricao;
     private Boolean selecionaUC;
 
-    public EntradaSaida(){
-        this.nome = "Entrada Tardia e Saída Antecipada";
+    public CancelamentoMatricula(){
+        this.nome = "Cancelamento de Matrícula";
         this.descricao = "Descrição 1";
-        this.selecionaUC = true;
+        this.selecionaUC = false;
     }
 
     @Override
