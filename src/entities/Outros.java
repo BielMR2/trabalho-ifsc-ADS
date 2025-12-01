@@ -5,18 +5,18 @@ import interfaces.TipoRequerimento;
 
 import java.time.LocalDateTime;
 
-public class JustificativaAusencia implements TipoRequerimento {
+public class Outros implements TipoRequerimento {
     private Integer id;
     private String nome;
     private String descricao;
     private Boolean selecionaUC;
     private Momento prazo;
 
-    public JustificativaAusencia(){
-        this.nome = "Justificativa de Ausência";
+    public Outros(){
+        this.nome = "Outros Requerimentos";
         this.descricao = "Descrição";
-        this.selecionaUC = true;
-        this.prazo = new MomentoFinal(LocalDateTime.of(2025, 12 , 30, 23, 59));
+        this.selecionaUC = false;
+        this.prazo = new MomentoFinal(LocalDateTime.of(2025, 4 , 11, 23, 59));
     }
 
     @Override

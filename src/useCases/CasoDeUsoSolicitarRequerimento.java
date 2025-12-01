@@ -4,6 +4,7 @@ import entities.*;
 import interfaces.*;
 import utils.Console;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,6 +25,11 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
 
         TipoRequerimento tipoRequerimentoSelecionado = pegarTipoRequerimento();
         sc.nextLine();
+
+        if (tipoRequerimentoSelecionado.prazo().instante().isBefore(LocalDateTime.now())) {
+            console.msg("O prazo desse tipo de requerimento já passou...");
+            return;
+        }
 
         List<UnidadeCurricular> unidadeCurricularSelecionado = new ArrayList<>();
         if (tipoRequerimentoSelecionado.selecionaUC()) {
@@ -69,7 +75,8 @@ public class CasoDeUsoSolicitarRequerimento implements CasoDeUso {
                 new ValidacaoRE(),
                 new ValidacaoRS(),
                 new TrancamentoMatricula(),
-                new CancelamentoMatricula()
+                new CancelamentoMatricula(),
+                new Outros()
         );
 
         console.bloco("Selecione o tipo de requerimento:");

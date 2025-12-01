@@ -5,4 +5,5 @@ public interface TipoRequerimento {
     String nome();
     String descricao();
     Boolean selecionaUC();
+    Momento prazo();
 }

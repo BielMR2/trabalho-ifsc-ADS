@@ -1,17 +1,22 @@
 package entities;
 
+import interfaces.Momento;
 import interfaces.TipoRequerimento;
+
+import java.time.LocalDateTime;
 
 public class ValidacaoRE implements TipoRequerimento {
     private Integer id;
     private String nome;
     private String descricao;
     private Boolean selecionaUC;
+    private Momento prazo;
 
     public ValidacaoRE(){
         this.nome = "Validação de Unidade Curricular por Reconhecimento de Estudos";
         this.descricao = "Descrição";
         this.selecionaUC = true;
+        this.prazo = new MomentoFinal(LocalDateTime.of(2025, 3 , 23, 23, 59));
     }
 
     @Override
@@ -31,4 +36,7 @@ public class ValidacaoRE implements TipoRequerimento {
 
     @Override
     public Boolean selecionaUC() { return this.selecionaUC; }
+
+    @Override
+    public Momento prazo() { return this.prazo; }
 }
